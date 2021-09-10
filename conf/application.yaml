@@ -1,0 +1,10 @@
+server:
+  port: 6666
+datasource:
+  driverName: "mysql"
+  host: "localhost"
+  port: "3306"
+  database: "gin-ray"
+  username: "ray"
+  password: "root"
+  charset: "utf8"
