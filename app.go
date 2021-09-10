@@ -5,7 +5,12 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/gin-gonic/gin"
+	"github.com/ohmyray/gin-example/common"
+	"github.com/ohmyray/gin-example/middleware"
+	"github.com/ohmyray/gin-example/route"
 	"github.com/spf13/viper"
+
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var config *viper.Viper
@@ -13,22 +18,28 @@ var config *viper.Viper
 func main() {
 	// 1.读取配置文件
 	config = initConfigure()
+	// 2.通过配置连接数据库
+	db := common.InitDB(config)
+	defer db.Close()
 
 	r := gin.Default()
-
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	r.Use(middleware.CorsMiddleware())
+	r = route.CollectRoute(r)
 
 	r.GET("/getConfig", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"config": config.AllSettings(),
 		})
 	})
+	port := config.GetString("server.port")
 
-	r.Run(":8001")
+	if port == "" {
+		panic(r.Run())
+	}
+
+	fmt.Println("listen and serve on 0.0.0.0:" + port)
+
+	panic(r.Run(":" + port))
 }
 
 func initConfigure() *viper.Viper {
