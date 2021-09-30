@@ -5,11 +5,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"github.com/rayGin/common"
-	"github.com/rayGin/dto"
-	"github.com/rayGin/model"
-	"github.com/rayGin/response"
-	"github.com/rayGin/util"
+	"github.com/ohmyray/gin-example/common"
+	"github.com/ohmyray/gin-example/util"
+
+	"github.com/ohmyray/gin-example/dto"
+	"github.com/ohmyray/gin-example/model"
+	"github.com/ohmyray/gin-example/response"
 
 	"log"
 	"net/http"

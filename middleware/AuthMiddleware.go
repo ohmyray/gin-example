@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ohmyray/gin-example/common"
 	"github.com/ohmyray/gin-example/model"
 )
 

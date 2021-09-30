@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/rayGin/model"
+	"github.com/ohmyray/gin-example/model"
 )
 
 var jwtKey = []byte("a_secret_crect")

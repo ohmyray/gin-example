@@ -10,7 +10,8 @@ import (
 	"github.com/ohmyray/gin-example/route"
 	"github.com/spf13/viper"
 
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	// _ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var config *viper.Viper
