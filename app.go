@@ -10,7 +10,7 @@ import (
 	"github.com/ohmyray/gin-example/route"
 	"github.com/spf13/viper"
 
-	// _ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -26,6 +26,7 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.CorsMiddleware())
 	r = route.CollectRoute(r)
+	r = route.InstallFileRoute(r)
 
 	r.GET("/getConfig", func(c *gin.Context) {
 		c.JSON(200, gin.H{

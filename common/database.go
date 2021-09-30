@@ -12,7 +12,7 @@ var DB *gorm.DB
 
 func InitDB(viper *viper.Viper) *gorm.DB {
 	driverName := viper.GetString("datasource.driverName")
-	dataName := viper.GetString("datasource.dataName")
+	sourceName := viper.GetString("datasource.sourceName")
 
 	args := ""
 	switch(driverName){
@@ -26,7 +26,7 @@ func InitDB(viper *viper.Viper) *gorm.DB {
 			args = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=true",
 				username, password, host, port, database, charset)
 		case "sqlite3":
-			args = dataName
+			args = sourceName + ".db"
 	}
 
 	db, err := gorm.Open(driverName, args)
