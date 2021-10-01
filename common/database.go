@@ -35,7 +35,7 @@ func InitDB(viper *viper.Viper) *gorm.DB {
 		panic("failed to connect database, err: " + err.Error())
 	}
 
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.User{},&model.File{})
 
 	DB = db
 	return db

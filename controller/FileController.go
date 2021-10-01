@@ -2,12 +2,16 @@ package controller
 
 import (
 	"fmt"
-	"net/http"
+	"github.com/ohmyray/gin-example/common"
+	"github.com/ohmyray/gin-example/dto"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ohmyray/gin-example/model"
 	"github.com/ohmyray/gin-example/response"
 )
+
+const BASE_PATH = "upload/"
 
 func Upload(ctx *gin.Context) {
 	file, err := ctx.FormFile("file")
@@ -22,14 +26,20 @@ func Upload(ctx *gin.Context) {
 		response.Fail(ctx, nil, "请求参数错误")
 		return
 	}
-	
-	// fmt.Println(bindFile.Name, bindFile.FilePath)
-	fmt.Println(file.Filename)
-	// fmt.Println(file)
-	ctx.SaveUploadedFile(file, file.Filename)
-	ctx.JSON(http.StatusOK, gin.H{
-		"code": "200",
-	})
+
+	path := filepath.Base(file.Filename)
+	saveFilePath := BASE_PATH + path
+	ctx.SaveUploadedFile(file, saveFilePath)
+	fmt.Println(file.Filename,path)
+	db := common.GetDB()
+
+	newFile := model.File{
+		Name:      "ohmyray",
+		FilePath:  saveFilePath,
+	}
+
+	db.Create(&newFile)
+	response.Success(ctx, gin.H{"file": dto.TransformToFileDto(newFile)}, "上传成功")
 
 
 }

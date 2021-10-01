@@ -9,3 +9,5 @@ datasource:
   password: "123456"
   charset: "utf8"
   sourceName: "gorm"
+fileServer:
+  path: "upload"
