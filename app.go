@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,7 @@ func main() {
 
 	r := gin.Default()
 	r.Use(middleware.CorsMiddleware())
+	r.Static("/file", string(http.Dir("upload")))
 	r = route.CollectRoute(r)
 	r = route.InstallFileRoute(r)
 
